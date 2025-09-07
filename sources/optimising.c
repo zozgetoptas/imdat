@@ -1,6 +1,8 @@
 #include "../includes/push_swap.h"
 #include <stdlib.h>
 
+// buraya biraz kafa yormalıyım.. KULLANAMADIM FONKSİYONLARI
+
 void push(t_stack *stack, int value)
 {
     t_node *new_node;
