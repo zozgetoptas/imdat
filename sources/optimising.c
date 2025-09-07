@@ -4,14 +4,12 @@
 void push(t_stack *stack, int value)
 {
     t_node *new_node;
-    
-    // Check if the stack pointer is valid
-    if (!stack)
-        error_exit(); // Or handle this case appropriately based on your design
 
+    if (!stack)
+        error_exit();
     new_node = malloc(sizeof(t_node));
     if (!new_node)
-        error_exit(); // Handle memory allocation failure
+        error_exit();
     
     new_node->value = value;
     new_node->next = stack->top;
@@ -37,12 +35,12 @@ int	get_optimal_rotate_direction(t_stack *stack, int value)
 	size = get_stack_size(stack);
 	pos = get_position(stack, value);
 	if (pos == -1)
-		return (0); // Value not found
+		return (0);
 
 	if (pos <= size / 2)
-		return (1); // Top half: rotate up
+		return (1);
 	else
-		return (-1); // Bottom half: reverse rotate down
+		return (-1);
 }
 
 void	move_to_top_optimized(t_stack **stack, int value)
@@ -54,7 +52,7 @@ void	move_to_top_optimized(t_stack **stack, int value)
 	size = get_stack_size(*stack);
 	pos = get_position(*stack, value);
 	if (pos == -1)
-		return; // Value not found
+		return;
 
 	direction = get_optimal_rotate_direction(*stack, value);
 	if (direction == 1)
