@@ -1,0 +1,55 @@
+#include <limits.h>
+#include <stdlib.h>
+#include "../includes/push_swap.h"
+
+long long	ft_atoll(const char *str)
+{
+	int		sign;
+	long long		res;
+	int		i;
+
+	sign = 1;
+	res = 0;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (res > (LLONG_MAX - (str[i] - '0')) / 10)
+		{
+			if (sign == 1)
+				return LLONG_MAX;
+			else
+				return LLONG_MIN;
+		}
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (sign * res);
+}
+
+t_stack *parse_arguments(char **argv)
+{
+    int total_args = 1;
+    while (argv[total_args])
+        total_args++;
+    total_args--;
+	t_stack *stack_a = malloc(sizeof(t_stack));
+    if (!stack_a)
+        error_exit();
+    stack_a->top = NULL;
+    stack_a->size = 0;
+	while (total_args >= 1)
+    {
+        long long nmbr = ft_atoll(argv[total_args]);
+        push(stack_a, (int)nmbr);
+        total_args--;
+    }
+	return(stack_a);
+}
