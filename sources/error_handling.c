@@ -29,6 +29,12 @@ void error_exit(void)
 	exit(1);
 }
 
+static void    free_argsll_and_error_exit(long long *args_ll)
+{
+    free(args_ll);
+    error_exit();
+}
+
 void handle_errors(char **argv)
 {
     int count;
@@ -43,23 +49,14 @@ void handle_errors(char **argv)
     while (argv[i])
     {
         if (valid_number_control(argv[i]))
-        {
-            free(args_ll);
-            error_exit();
-        }
+            free_argsll_and_error_exit(args_ll);
         args_ll[i - 1] = ft_atoll(argv[i]);
         if (integer_limits_control(args_ll[i - 1]))
-        {
-            free(args_ll);
-            error_exit();
-        }
+            free_argsll_and_error_exit(args_ll);
         i++;
     }
     if (doubles_control(args_ll, count))
-    {
-        free(args_ll);
-        error_exit();
-    }    
+        free_argsll_and_error_exit(args_ll);   
     free(args_ll);
 }
 

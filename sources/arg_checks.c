@@ -29,10 +29,11 @@ int	valid_number_control(char *arg)
 	}
 	return (0);
 }
-int doubles_control(long long *args, int count)
+
+int	doubles_control(long long *args, int count)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < count - 1)
@@ -49,7 +50,7 @@ int doubles_control(long long *args, int count)
 	return (0);
 }
 
-int integer_limits_control(long long nmbr)
+int	integer_limits_control(long long nmbr)
 {
 	if (nmbr > INT_MAX || nmbr < INT_MIN)
 		return (1);

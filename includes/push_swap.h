@@ -43,12 +43,6 @@ void handle_errors(char **argv);
 void error_exit(void);
 
 // hard_sorting functions
-int get_max_bits(t_stack *a);
-void radix_sort(t_stack **a, t_stack **b);
-void normalize_stack(t_stack **stack);
-void turk_sort(t_stack **stack_a, t_stack **stack_b);
-void sort_large_chunk(t_stack **stack_a, t_stack **stack_b);
-void sort_large_radix(t_stack **stack_a, t_stack **stack_b);
 void sort_large_hybrid(t_stack **stack_a, t_stack **stack_b);
 
 // pushing functions

@@ -14,15 +14,17 @@
 
 int get_position(t_stack *stack, int value)
 {
-    int position = 0;
+    int position;
     t_node *current;
+
+    position = 0;
     if(!stack || !stack->top)
         return (-1);
     current = stack->top;
     while(current)
     {
         if (current->value == value)
-            return position;
+            return (position);
         current = current->next;
         position++;
     }

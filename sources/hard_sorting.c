@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-void normalize_stack(t_stack **stack)
+static void normalize_stack(t_stack **stack)
 {
     if (!stack || !*stack || !(*stack)->top)
         return;
@@ -71,47 +71,49 @@ void normalize_stack(t_stack **stack)
     free(values);
     free(sorted);
 }
-int get_max_bits(t_stack *a)
+
+static int get_max_bits(t_stack *a)
 {
+    int max_value;
+    int max_bit_count;
+
     if (!a || !a->top)
-        return 0;
-        
-    int max_value = a->size - 1;
-    int max_bit_count = 0;
+        return (0);   
+    max_value = a->size - 1;
+    max_bit_count = 0;
     
     if (max_value == 0)
-        return 1;
-        
+        return (1);
     while ((max_value >> max_bit_count) != 0)
-        max_bit_count++;
-        
-    return max_bit_count;
+        max_bit_count++;    
+    return (max_bit_count);
 }
 
-void radix_sort(t_stack **a, t_stack **b)
+static void radix_sort(t_stack **a, t_stack **b)
 {
+    int i;
+    int j;
+    int a_stack_size;
+    int max_bit_count;
+    int value;
+
     normalize_stack(a);
-    
-    int max_bit_count = get_max_bits(*a);
-    int i = 0;
-    
-    while (i < max_bit_count)
+    max_bit_count = get_max_bits(*a);
+    i = -1;  
+    while (++i < max_bit_count)
     {
-        int a_stack_size = (*a)->size;
-        int j = 0;
-        
-        while (j < a_stack_size)
+        a_stack_size = (*a)->size;
+        j = -1;
+        while (++j < a_stack_size)
         {
-            int value = (*a)->top->value;
+            value = (*a)->top->value;
             if (((value >> i) & 1) == 0)
                 pb(a, b);
             else
                 ra(a);
-            j++;
         }
         while ((*b) && (*b)->size > 0)
             pa(a, b);
-        i++;
     }
 }
 
@@ -127,19 +129,22 @@ static int get_chunk_size(int total_size)
 
 static int get_chunk_index(int normalized_value, int chunk_size)
 {
-    return normalized_value / chunk_size;
+    return (normalized_value / chunk_size);
 }
 
 static int get_max_position_in_b(t_stack *stack_b)
 {
+    t_node *current;
+    int max_value;
+    int max_pos;
+    int current_pos;
+
     if (!stack_b || !stack_b->top)
-        return -1;
-    
-    t_node *current = stack_b->top;
-    int max_value = current->value;
-    int max_pos = 0;
-    int current_pos = 0;
-    
+        return (-1);
+    current = stack_b->top;
+    max_value = current->value;
+    max_pos = 0;
+    current_pos = 0;
     while (current)
     {
         if (current->value > max_value)
@@ -150,7 +155,7 @@ static int get_max_position_in_b(t_stack *stack_b)
         current = current->next;
         current_pos++;
     }
-    return max_pos;
+    return (max_pos);
 }
 
 static void move_max_to_top_b(t_stack **stack_b)
@@ -174,7 +179,7 @@ static void move_max_to_top_b(t_stack **stack_b)
     }
 }
 
-void chunk_sort(t_stack **stack_a, t_stack **stack_b)
+static void chunk_sort(t_stack **stack_a, t_stack **stack_b)
 {
     normalize_stack(stack_a);
     
@@ -224,17 +229,6 @@ void chunk_sort(t_stack **stack_a, t_stack **stack_b)
     }
 }
 
-void sort_large_chunk(t_stack **stack_a, t_stack **stack_b)
-{
-    chunk_sort(stack_a, stack_b);
-}
-
-void sort_large_radix(t_stack **stack_a, t_stack **stack_b)
-{
-    radix_sort(stack_a, stack_b);
-}
-
-// HYBRID APPROACH - İstersen bunu kullanabilirsin
 void sort_large_hybrid(t_stack **stack_a, t_stack **stack_b)
 {
     if ((*stack_a)->size <= 100)

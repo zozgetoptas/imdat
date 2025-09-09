@@ -31,7 +31,6 @@ static int is_sorted(t_stack *stack)
     return (1);
 }
 
-
 static void free_stack(t_stack *stack)
 {
     t_node *current;
@@ -47,6 +46,16 @@ static void free_stack(t_stack *stack)
         current = temp;
     }
     free(stack);
+}
+
+static void	sort_and_cleanup(t_stack **stack_a, t_stack **stack_b)
+{
+	if ((*stack_a)->size <= 3)
+		sort_small(stack_a, stack_b);
+	else
+		sort_large_hybrid(stack_a, stack_b);
+	free_stack(*stack_a);
+	free_stack(*stack_b);
 }
 
 int main(int argc, char **argv)
@@ -72,12 +81,7 @@ int main(int argc, char **argv)
         free_stack(stack_b);
         return(0);
     }
-    if (stack_a->size <= 3)
-	 	sort_small(&stack_a, &stack_b);
-	else
-		sort_large_hybrid(&stack_a, &stack_b);
-    free_stack(stack_a);
-    free_stack(stack_b);
+    sort_and_cleanup(&stack_a, &stack_b);
     return(0);
 }
 

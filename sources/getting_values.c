@@ -27,5 +27,5 @@ int get_min_value(t_stack *stack)
             min = current->value;
         current = current->next;
     }
-    return min;
+    return (min);
 }
