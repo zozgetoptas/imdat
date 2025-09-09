@@ -14,146 +14,66 @@
 #include <stdlib.h>
 #include <limits.h>
 
-static void normalize_stack(t_stack **stack)
+void	process_chunk(t_stack **sA, t_stack **sB, int curch, int chsize)
 {
-    if (!stack || !*stack || !(*stack)->top)
-        return;
-    int size = (*stack)->size;
-    int *values = malloc(sizeof(int) * size);
-    int *sorted = malloc(sizeof(int) * size);
-    if (!values || !sorted)
-    {
-        free(values);
-        free(sorted);
-        error_exit();
-    }
-    t_node *current = (*stack)->top;
-    int i = 0;
-    while (current && i < size)
-    {
-        values[i] = current->value;
-        sorted[i] = current->value;
-        current = current->next;
-        i++;
-    }
-    int outer_loop = 0;
-    while (outer_loop < size - 1)
-    {
-        int inner_loop = 0;
-        while (inner_loop < size - outer_loop - 1)
-        {
-            if (sorted[inner_loop] > sorted[inner_loop + 1])
-            {
-                int temp = sorted[inner_loop];
-                sorted[inner_loop] = sorted[inner_loop + 1];
-                sorted[inner_loop + 1] = temp;
-            }
-            inner_loop++;
-        }
-        outer_loop++;
-    }
-    current = (*stack)->top;
-    while (current)
-    {
-        i = 0;
-        while (i < size)
-        {
-            if (current->value == sorted[i])
-            {
-                current->value = i;
-                break;
-            }
-            i++;
-        }
-        current = current->next;
-    }
-    
-    free(values);
-    free(sorted);
+	int	i;
+	int	initial_size;
+
+	i = -1;
+	initial_size = (*sA)->size;
+	while (++i < initial_size)
+	{
+		if (chunk_index((*sA)->top->value, chsize) == curch)
+		{
+			pb(sA, sB);
+			sort_and_push(sB);
+		}
+		else
+		{
+			ra(sA);
+		}
+	}
 }
 
-static void radix_sort(t_stack **a, t_stack **b)
+static void	radix_sort(t_stack **a, t_stack **b)
 {
-    int i;
-    int j;
-    int a_stack_size;
-    int max_bit_count;
-    int value;
+	int	i;
+	int	j;
+	int	a_stack_size;
+	int	max_bit_count;
+	int	value;
 
-    normalize_stack(a);
-    max_bit_count = get_max_bits(*a);
-    i = -1;  
-    while (++i < max_bit_count)
-    {
-        a_stack_size = (*a)->size;
-        j = -1;
-        while (++j < a_stack_size)
-        {
-            value = (*a)->top->value;
-            if (((value >> i) & 1) == 0)
-                pb(a, b);
-            else
-                ra(a);
-        }
-        while ((*b) && (*b)->size > 0)
-            pa(a, b);
-    }
+	normalize_stack(a);
+	max_bit_count = get_max_bits(*a);
+	i = -1;
+	while (++i < max_bit_count)
+	{
+		a_stack_size = (*a)->size;
+		j = -1;
+		while (++j < a_stack_size)
+		{
+			value = (*a)->top->value;
+			if (((value >> i) & 1) == 0)
+				pb(a, b);
+			else
+				ra(a);
+		}
+		while ((*b) && (*b)->size > 0)
+			pa(a, b);
+	}
 }
 
-static void chunk_sort(t_stack **stack_a, t_stack **stack_b)
+static void	chunk_sort(t_stack **stack_a, t_stack **stack_b)
 {
-    normalize_stack(stack_a);
-    
-    int total_size = (*stack_a)->size;
-    int chunk_size = get_chunk_size(total_size);
-    if (chunk_size < 1)
-        chunk_size = 1;
-    
-    int current_chunk = 0;
-    int max_chunk = (total_size - 1) / chunk_size;
-    
-    // Phase 1: Stack A'dan chunk'ları Stack B'ye gönder
-    while (current_chunk <= max_chunk && (*stack_a)->size > 0)
-    {
-        int initial_size = (*stack_a)->size;
-        
-        for (int i = 0; i < initial_size; i++)
-        {
-            int top_value = (*stack_a)->top->value;
-            int value_chunk = get_chunk_index(top_value, chunk_size);
-            
-            if (value_chunk == current_chunk)
-            {
-                pb(stack_a, stack_b);
-                
-                if ((*stack_b)->size > 1 && 
-                    (*stack_b)->top->value < (*stack_b)->top->next->value)
-                    rb(stack_b);
-            }
-            else
-            {
-                ra(stack_a);
-            }
-            
-            if ((*stack_a)->size == 0)
-                break;
-        }
-        
-        current_chunk++;
-    }
-    
-    // Phase 2: Stack B'den Stack A'ya en büyükten küçüğe sırayla geri gönder
-    while ((*stack_b)->size > 0)
-    {
-        move_max_to_top_b(stack_b);
-        pa(stack_a, stack_b);
-    }
+	normalize_stack(stack_a);
+	move_chunks_to_b(stack_a, stack_b, (*stack_a)->size);
+	move_sorted_to_a(stack_a, stack_b);
 }
 
-void sort_large_hybrid(t_stack **stack_a, t_stack **stack_b)
+void	sort_large_hybrid(t_stack **stack_a, t_stack **stack_b)
 {
-    if ((*stack_a)->size <= 100)
-        chunk_sort(stack_a, stack_b);
-    else
-        radix_sort(stack_a, stack_b);
+	if ((*stack_a)->size <= 100)
+		chunk_sort(stack_a, stack_b);
+	else
+		radix_sort(stack_a, stack_b);
 }

@@ -12,42 +12,60 @@
 
 #include "../includes/push_swap.h"
 
-static void sort_two(t_stack **stack_a)
+static int	get_min_value(t_stack *stack)
+{
+	t_node	*current;
+	int		min;
+
+	if (!stack || !stack->top)
+		return (0);
+	min = stack->top->value;
+	current = stack->top->next;
+	while (current)
+	{
+		if (current->value < min)
+			min = current->value;
+		current = current->next;
+	}
+	return (min);
+}
+
+void	sort_two(t_stack **stack_a)
 {
 	if ((*stack_a)->top->value > (*stack_a)->top->next->value)
 		sa(stack_a);
 }
 
-static void sort_three(t_stack **stack_a)
+void	sort_three(t_stack **stack_a)
 {
-	int a;
-	int b;
-	int c;
-	
+	int	a;
+	int	b;
+	int	c;
+
 	a = (*stack_a)->top->value;
 	b = (*stack_a)->top->next->value;
 	c = (*stack_a)->top->next->next->value;
 	if (a < b && b < c)
-		return;                    // 1 2 3
+		return ;
 	else if (a < b && b > c && a < c)
 	{
-		sa(stack_a);               // 3 1 2
-		ra(stack_a);               //  1 2 3
+		sa(stack_a);
+		ra(stack_a);
 	}
 	else if (a < b && b > c && a > c)
-		rra(stack_a);              //  1 2 3
+		rra(stack_a);
 	else if (a > b && b < c && a < c)
-		sa(stack_a);               // 1 2 3
+		sa(stack_a);
 	else if (a > b && b < c && a > c)
-		ra(stack_a);               //  1 2 3
-	else // a > b && b > c
+		ra(stack_a);
+	else
 	{
-		sa(stack_a);           //  2 3 1
-		rra(stack_a);        //  1 2 3
+		sa(stack_a);
+		rra(stack_a);
 	}
 }
 
-static void	sort_four(t_stack **stack_a, t_stack **stack_b)
+void	sort_four(t_stack **stack_a, t_stack **stack_b)
 {
 	int	min_value;
 
@@ -56,7 +74,7 @@ static void	sort_four(t_stack **stack_a, t_stack **stack_b)
 	pb(stack_a, stack_b);
 }
 
-static void	sort_five(t_stack **stack_a, t_stack **stack_b)
+void	sort_five(t_stack **stack_a, t_stack **stack_b)
 {
 	int	min_value;
 	int	second_min;
@@ -70,19 +88,4 @@ static void	sort_five(t_stack **stack_a, t_stack **stack_b)
 	sort_three(stack_a);
 	pa(stack_a, stack_b);
 	pa(stack_a, stack_b);
-}
-
-void	sort_small(t_stack **stack_a, t_stack **stack_b)
-{
-	int	size;
-
-	size = (*stack_a)->size;
-	if (size == 2)
-		sort_two(stack_a);
-	else if (size == 3)
-		sort_three(stack_a);
-	else if (size == 4)
-		sort_four(stack_a, stack_b);
-	else if (size == 5)
-		sort_five(stack_a, stack_b);
 }

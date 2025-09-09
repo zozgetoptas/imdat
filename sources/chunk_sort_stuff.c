@@ -12,64 +12,66 @@
 
 #include "../includes/push_swap.h"
 
-int get_chunk_index(int normalized_value, int chunk_size)
+int	chunk_index(int normalized_value, int chunk_size)
 {
-    return (normalized_value / chunk_size);
+	return (normalized_value / chunk_size);
 }
 
-int get_chunk_size(int total_size)
+int	get_chunk_size(int total_size)
 {
-    if (total_size <= 50)
-        return (total_size / 3);  // 3 chunk - daha agresif
-    else if (total_size <= 100)
-        return (total_size / 6);  // 6 chunk - daha küçük
-    else
-        return (total_size / 10); // 10 chunk - büyük sayılar için
+	if (total_size <= 50)
+		return (total_size / 3);
+	else if (total_size <= 100)
+		return (total_size / 6);
+	else
+		return (total_size / 10);
 }
 
-static int get_max_position_in_b(t_stack *stack_b)
+static int	get_max_position_in_b(t_stack *stack_b)
 {
-    t_node *current;
-    int max_value;
-    int max_pos;
-    int current_pos;
+	t_node	*current;
+	int		max_value;
+	int		max_pos;
+	int		current_pos;
 
-    if (!stack_b || !stack_b->top)
-        return (-1);
-    current = stack_b->top;
-    max_value = current->value;
-    max_pos = 0;
-    current_pos = 0;
-    while (current)
-    {
-        if (current->value > max_value)
-        {
-            max_value = current->value;
-            max_pos = current_pos;
-        }
-        current = current->next;
-        current_pos++;
-    }
-    return (max_pos);
+	if (!stack_b || !stack_b->top)
+		return (-1);
+	current = stack_b->top;
+	max_value = current->value;
+	max_pos = 0;
+	current_pos = 0;
+	while (current)
+	{
+		if (current->value > max_value)
+		{
+			max_value = current->value;
+			max_pos = current_pos;
+		}
+		current = current->next;
+		current_pos++;
+	}
+	return (max_pos);
 }
 
-void move_max_to_top_b(t_stack **stack_b)
+void	move_max_to_top_b(t_stack **stack_b)
 {
-    int max_pos = get_max_position_in_b(*stack_b);
-    if (max_pos == -1)
-        return;
-    
-    int size = (*stack_b)->size;
-    
-    if (max_pos <= size / 2)
-    {
-        while (max_pos-- > 0)
-            rb(stack_b);
-    }
-    else
-    {
-        int reverse_moves = size - max_pos;
-        while (reverse_moves-- > 0)
-            rrb(stack_b);
-    }
+	int	max_pos;
+	int	size;
+	int	reverse_moves;
+
+	max_pos = get_max_position_in_b(*stack_b);
+	if (max_pos == -1)
+		return ;
+	size = (*stack_b)->size;
+	if (max_pos <= size / 2)
+	{
+		while (max_pos-- > 0)
+			rb(stack_b);
+	}
+	else
+	{
+		reverse_moves = size - max_pos;
+		while (reverse_moves-- > 0)
+			rrb(stack_b);
+	}
 }

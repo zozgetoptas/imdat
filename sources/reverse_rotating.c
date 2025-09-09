@@ -13,50 +13,48 @@
 #include "../includes/push_swap.h"
 #include <unistd.h>
 
-void rra(t_stack **stack_a)
+void	rra(t_stack **stack_a)
 {
-    if ((*stack_a) == NULL || (*stack_a)->size < 2)
-        return;
+	t_node	*first;
+	t_node	*last;
+	t_node	*just_before_the_last;
 
-    t_node *first;
-    t_node *last;
-    t_node *just_before_the_last;
-
-    first = (*stack_a)->top;
-    just_before_the_last = NULL;
-    last = first;
-    while (last->next != NULL)
-    {
-        just_before_the_last = last;
-        last = last->next;
-    }
-    if (just_before_the_last != NULL)
-        just_before_the_last->next = NULL;
-    last->next = first;
-    (*stack_a)->top = last;
-    write(1, "rra\n", 4);
+	if ((*stack_a) == NULL || (*stack_a)->size < 2)
+		return ;
+	first = (*stack_a)->top;
+	just_before_the_last = NULL;
+	last = first;
+	while (last->next != NULL)
+	{
+		just_before_the_last = last;
+		last = last->next;
+	}
+	if (just_before_the_last != NULL)
+		just_before_the_last->next = NULL;
+	last->next = first;
+	(*stack_a)->top = last;
+	write(1, "rra\n", 4);
 }
 
-void rrb(t_stack **stack_b)
+void	rrb(t_stack **stack_b)
 {
-    if ((*stack_b) == NULL || (*stack_b)->size < 2)
-        return;
+	t_node	*first;
+	t_node	*last;
+	t_node	*just_before_the_last;
 
-    t_node *first;
-    t_node *last;
-    t_node *just_before_the_last;
-
-    first = (*stack_b)->top;
-    just_before_the_last = NULL;
-    last = first;
-    while (last->next != NULL)
-    {
-        just_before_the_last = last;
-        last = last->next;
-    }
-    if (just_before_the_last != NULL)
-        just_before_the_last->next = NULL;
-    last->next = first;
-    (*stack_b)->top = last;
-    write(1, "rrb\n", 4);
+	if ((*stack_b) == NULL || (*stack_b)->size < 2)
+		return ;
+	first = (*stack_b)->top;
+	just_before_the_last = NULL;
+	last = first;
+	while (last->next != NULL)
+	{
+		just_before_the_last = last;
+		last = last->next;
+	}
+	if (just_before_the_last != NULL)
+		just_before_the_last->next = NULL;
+	last->next = first;
+	(*stack_b)->top = last;
+	write(1, "rrb\n", 4);
 }
