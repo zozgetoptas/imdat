@@ -48,19 +48,39 @@ int main(int argc, char **argv)
     stack_a = parse_arguments(argv);
     stack_b = malloc(sizeof(t_stack));
     if (!stack_b)
+    {
+        free_stack(stack_a);
         error_exit();
+    }
     stack_b->top = NULL;
     stack_b->size = 0;
     if (is_sorted(stack_a))
     {
         free_stack(stack_a);
+        free_stack(stack_b);
         return(0);
     }
-    if (stack_a->size <= 5)
+    if (stack_a->size <= 3)
 	 	sort_small(&stack_a, &stack_b);
 	else
-		radix_sort(&stack_a, &stack_b);
+		sort_large_hybrid(&stack_a, &stack_b);
     free_stack(stack_a);
     free_stack(stack_b);
     return(0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

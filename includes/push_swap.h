@@ -34,6 +34,10 @@ void error_exit(void);
 int get_max_bits(t_stack *a);
 void radix_sort(t_stack **a, t_stack **b);
 void normalize_stack(t_stack **stack);
+void turk_sort(t_stack **stack_a, t_stack **stack_b);
+void sort_large_chunk(t_stack **stack_a, t_stack **stack_b);
+void sort_large_radix(t_stack **stack_a, t_stack **stack_b);
+void sort_large_hybrid(t_stack **stack_a, t_stack **stack_b);
 
 // pushing functions
 void pa(t_stack **stack_a, t_stack **stack_b);
@@ -41,9 +45,11 @@ void pb(t_stack **stack_a, t_stack **stack_b);
 
 // rotating functions
 void ra(t_stack **stack_a);
+void rb(t_stack **stack_b);
 
 // reverse_rotating functions
 void rra(t_stack **stack_a);
+void rrb(t_stack **stack_b);
 
 // getting_positions functions
 int get_position(t_stack *stack, int value);

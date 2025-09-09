@@ -1,6 +1,6 @@
 #include <limits.h>
 
-int valid_number_control(char *arg)
+int	valid_number_control(char *arg)
 {
 	int	i;
 
@@ -19,20 +19,22 @@ int valid_number_control(char *arg)
 }
 int doubles_control(long long *args, int count)
 {
-	int i = 0;
+	int i;
 	int j;
+
+	i = 0;
 	while (i < count - 1)
 	{
 		j = i + 1;
 		while (j < count)
 		{
 			if (args[i] == args[j])
-				return 1;
+				return (1);
 			j++;
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 int integer_limits_control(long long nmbr)
