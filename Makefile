@@ -15,6 +15,8 @@ SRCS = sources/error_handling.c \
 		sources/optimising.c \
 		sources/getting_values.c \
 		sources/getting_positions.c \
+		sources/radix_sort_stuff.c \
+		sources/chunk_sort_stuff.c \
 
 OBJS = $(SRCS:.c=.o)
 

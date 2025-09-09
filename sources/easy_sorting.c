@@ -54,8 +54,6 @@ static void	sort_four(t_stack **stack_a, t_stack **stack_b)
 	min_value = get_min_value(*stack_a);
 	move_to_top_optimized(stack_a, min_value);
 	pb(stack_a, stack_b);
-	pb(stack_a, stack_b);
-	pa(stack_a, stack_b);
 }
 
 static void	sort_five(t_stack **stack_a, t_stack **stack_b)

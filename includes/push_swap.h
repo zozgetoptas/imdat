@@ -23,6 +23,11 @@ typedef struct s_stack {
     int size;
 } t_stack;
 
+// chunk_sort_stuff functions
+void move_max_to_top_b(t_stack **stack_b);
+int get_chunk_size(int total_size);
+int get_chunk_index(int normalized_value, int chunk_size);
+
 // parsing functions
 t_stack *parse_arguments(char **argv);
 long long	ft_atoll(const char *str);
@@ -59,13 +64,16 @@ void rrb(t_stack **stack_b);
 
 // getting_positions functions
 int get_position(t_stack *stack, int value);
+int get_chunk_index(int normalized_value, int chunk_size);
 
 // getting_values functions
 int get_min_value(t_stack *stack);
 
 // optimising functions
-void push(t_stack *stack, int value);
 int	get_optimal_rotate_direction(t_stack *stack, int value);
 void	move_to_top_optimized(t_stack **stack, int value);
+
+// radix_sort_stuff functions
+int get_max_bits(t_stack *a);
 
 #endif

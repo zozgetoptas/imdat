@@ -13,23 +13,6 @@
 #include "../includes/push_swap.h"
 #include <stdlib.h>
 
-// buraya biraz kafa yormalıyım.. KULLANAMADIM FONKSİYONLARI
-
-void push(t_stack *stack, int value)
-{
-    t_node *new_node;
-
-    if (!stack)
-        error_exit();
-    new_node = malloc(sizeof(t_node));
-    if (!new_node)
-        error_exit();
-    
-    new_node->value = value;
-    new_node->next = stack->top;
-    stack->top = new_node;
-    stack->size++;
-}
 static int	get_stack_size(t_stack *stack)
 {
 	int	size;

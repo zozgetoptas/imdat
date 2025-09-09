@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getting_positions.c                                :+:      :+:    :+:   */
+/*   radix_sort_stuff.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ztoptas <ztoptas@student.42kocaeli.com.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/09 13:06:17 by ztoptas           #+#    #+#             */
-/*   Updated: 2025/09/09 13:06:17 by ztoptas          ###   ########.fr       */
+/*   Created: 2025/09/09 16:45:31 by ztoptas           #+#    #+#             */
+/*   Updated: 2025/09/09 16:45:31 by ztoptas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-int get_position(t_stack *stack, int value)
+int get_max_bits(t_stack *a)
 {
-    int position;
-    t_node *current;
+    int max_value;
+    int max_bit_count;
 
-    position = 0;
-    if(!stack || !stack->top)
-        return (-1);
-    current = stack->top;
-    while(current)
-    {
-        if (current->value == value)
-            return (position);
-        current = current->next;
-        position++;
-    }
-    return (-1);
+    if (!a || !a->top)
+        return (0);   
+    max_value = a->size - 1;
+    max_bit_count = 0;
+    
+    if (max_value == 0)
+        return (1);
+    while ((max_value >> max_bit_count) != 0)
+        max_bit_count++;    
+    return (max_bit_count);
 }
-
