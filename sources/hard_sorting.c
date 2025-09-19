@@ -72,7 +72,7 @@ static void	chunk_sort(t_stack **stack_a, t_stack **stack_b)
 
 void	sort_large_hybrid(t_stack **stack_a, t_stack **stack_b)
 {
-	if ((*stack_a)->size < 500)
+	if ((*stack_a)->size < 450)
 		chunk_sort(stack_a, stack_b);
 	else
 		radix_sort(stack_a, stack_b);
