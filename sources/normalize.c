@@ -13,7 +13,7 @@
 #include "../includes/push_swap.h"
 #include <stdlib.h>
 
-static void	cpy_stack_to_arr(t_stack *stack, int *values, int *sorted, int size)
+static void	cpy_stack_to_arr(t_stack *stack, int *sorted, int size)
 {
 	t_node	*current;
 	int		i;
@@ -22,7 +22,6 @@ static void	cpy_stack_to_arr(t_stack *stack, int *values, int *sorted, int size)
 	i = 0;
 	while (current && i < size)
 	{
-		values[i] = current->value;
 		sorted[i] = current->value;
 		current = current->next;
 		i++;
@@ -78,23 +77,19 @@ static void	update_stack_values(t_stack *stack, int *sorted, int size)
 void	normalize_stack(t_stack **stack)
 {
 	int	size;
-	int	*values;
 	int	*sorted;
 
 	if (!stack || !*stack || !(*stack)->top)
 		return ;
 	size = (*stack)->size;
-	values = malloc(sizeof(int) * size);
 	sorted = malloc(sizeof(int) * size);
-	if (!values || !sorted)
+	if (!sorted)
 	{
-		free(values);
 		free(sorted);
 		error_exit();
 	}
-	cpy_stack_to_arr(*stack, values, sorted, size);
+	cpy_stack_to_arr(*stack, sorted, size);
 	sort_array(sorted, size);
 	update_stack_values(*stack, sorted, size);
-	free(values);
 	free(sorted);
 }

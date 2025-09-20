@@ -19,9 +19,9 @@ void	process_chunk(t_stack **sA, t_stack **sB, int curch, int chsize)
 	int	i;
 	int	initial_size;
 
-	i = -1;
+	i = 0;
 	initial_size = (*sA)->size;
-	while (++i < initial_size)
+	while (i < initial_size)
 	{
 		if (chunk_index((*sA)->top->value, chsize) == curch)
 		{
@@ -29,9 +29,8 @@ void	process_chunk(t_stack **sA, t_stack **sB, int curch, int chsize)
 			sort_and_push(sB);
 		}
 		else
-		{
 			ra(sA);
-		}
+		i++;
 	}
 }
 

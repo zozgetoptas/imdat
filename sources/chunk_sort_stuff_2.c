@@ -24,12 +24,13 @@ void	move_chunks_to_b(t_stack **sA, t_stack **sB, int totalSize)
 	int	max_chunk;
 	int	chunk_size;
 
-	curchunk = -1;
+	curchunk = 0;
 	chunk_size = get_chunk_size(totalSize);
 	max_chunk = (totalSize - 1) / chunk_size;
-	while (++curchunk <= max_chunk && (*sA)->size > 0)
+	while (curchunk <= max_chunk && (*sA)->size > 0)
 	{
 		process_chunk(sA, sB, curchunk, chunk_size);
+		curchunk++;
 	}
 }
 
