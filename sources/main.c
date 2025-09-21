@@ -19,7 +19,7 @@ static int	is_sorted(t_stack *stack)
 {
 	t_node	*current;
 
-	if (!stack || !stack->top || stack->size <= 1)
+	if (!stack || stack->size <= 1)
 		return (1);
 	current = stack->top;
 	while (current->next)
@@ -48,7 +48,7 @@ static void	free_stack(t_stack *stack)
 	free(stack);
 }
 
-static void	sort_small(t_stack **stack_a)
+static void	sort_small(t_stack **stack_a, t_stack **stack_b)
 {
 	int	size;
 
@@ -57,12 +57,16 @@ static void	sort_small(t_stack **stack_a)
 		sort_two(stack_a);
 	else if (size == 3)
 		sort_three(stack_a);
+	else if (size == 4)
+		sort_four(stack_a, stack_b);
+	else if (size == 5)
+		sort_five(stack_a, stack_b);
 }
 
 static void	sort_and_cleanup(t_stack **stack_a, t_stack **stack_b)
 {
-	if ((*stack_a)->size <= 3)
-		sort_small(stack_a);
+	if ((*stack_a)->size <= 5)
+		sort_small(stack_a, stack_b);
 	else
 		sort_large_hybrid(stack_a, stack_b);
 	free_stack(*stack_a);
