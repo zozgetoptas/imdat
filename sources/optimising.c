@@ -58,7 +58,7 @@ int	get_optimal_rotate_direction(t_stack *stack, int value)
 		return (-1);
 }
 
-void	move_to_top_optimized(t_stack **stack, int value)
+void	move_value_to_top(t_stack **stack, int value)
 {
 	int	pos;
 	int	size;

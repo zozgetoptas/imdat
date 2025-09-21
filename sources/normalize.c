@@ -84,10 +84,7 @@ void	normalize_stack(t_stack **stack)
 	size = (*stack)->size;
 	sorted = malloc(sizeof(int) * size);
 	if (!sorted)
-	{
-		free(sorted);
 		error_exit();
-	}
 	cpy_stack_to_arr(*stack, sorted, size);
 	sort_array(sorted, size);
 	update_stack_values(*stack, sorted, size);

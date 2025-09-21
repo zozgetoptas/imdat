@@ -5,6 +5,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRCS = sources/error_handling.c \
 		sources/arg_checks.c \
 		sources/easy_sorting.c \
+		sources/easy_sorting_utils.c \
 		sources/hard_sorting.c \
 		sources/parsing.c \
 		sources/main.c \
@@ -13,7 +14,6 @@ SRCS = sources/error_handling.c \
 		sources/reverse_rotating.c \
 		sources/rotating.c \
 		sources/optimising.c \
-		sources/radix_sort_stuff.c \
 		sources/chunk_sort_stuff.c \
 		sources/chunk_sort_stuff_2.c \
 		sources/normalize.c \

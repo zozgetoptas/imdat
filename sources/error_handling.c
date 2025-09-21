@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <limits.h>
-#include <stdio.h>
 
 static int	count_arguments(char **argv)
 {

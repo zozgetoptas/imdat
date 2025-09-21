@@ -34,6 +34,22 @@ void	process_chunk(t_stack **sA, t_stack **sB, int curch, int chsize)
 	}
 }
 
+static int	get_max_bits(t_stack *a)
+{
+	int	max_value;
+	int	max_bit_count;
+
+	if (!a || !a->top)
+		return (0);
+	max_value = a->size - 1;
+	max_bit_count = 0;
+	if (max_value == 0)
+		return (1);
+	while ((max_value >> max_bit_count) != 0)
+		max_bit_count++;
+	return (max_bit_count);
+}
+
 static void	radix_sort(t_stack **a, t_stack **b)
 {
 	int	i;
