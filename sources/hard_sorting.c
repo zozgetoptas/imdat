@@ -44,8 +44,8 @@ static void	radix_sort(t_stack **a, t_stack **b)
 
 	normalize_stack(a);
 	max_bit_count = get_max_bits(*a);
-	i = -1;
-	while (++i < max_bit_count)
+	i = 0;
+	while (i < max_bit_count)
 	{
 		a_stack_size = (*a)->size;
 		j = -1;
@@ -59,6 +59,7 @@ static void	radix_sort(t_stack **a, t_stack **b)
 		}
 		while ((*b) && (*b)->size > 0)
 			pa(a, b);
+		i++;
 	}
 }
 

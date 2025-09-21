@@ -89,7 +89,7 @@ int	main(int argc, char **argv)
 	if (is_sorted(stack_a))
 	{
 		free_stack(stack_a);
-		free_stack(stack_b);
+		free(stack_b);
 		return (0);
 	}
 	sort_and_cleanup(&stack_a, &stack_b);
